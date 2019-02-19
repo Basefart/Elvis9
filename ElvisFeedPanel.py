@@ -21,6 +21,24 @@ import re
 ## Class ElvisFeedPanel
 ###########################################################################
 
+# Define notification event for thread completion
+EVT_RESULT_ID = wx.NewId()
+
+
+def EVT_RESULT(win, func):
+    """Define Result Event."""
+    win.Connect(-1, -1, EVT_RESULT_ID, func)
+
+
+class ResultEvent(wx.PyEvent):
+    """Simple event to carry arbitrary result data."""
+
+    def __init__(self, data):
+        """Init Result Event."""
+        wx.PyEvent.__init__(self)
+        self.SetEventType(EVT_RESULT_ID)
+        self.data = data
+
 class feedTemplatesThread(threading.Thread):
     def __init__(self, parent):
         threading.Thread.__init__(self)
@@ -40,6 +58,7 @@ class feedTemplatesThread(threading.Thread):
                 time.sleep(0.0001)
                 self.parent.ElvisTemplProgress.SetValue(i)
                 i += 1
+        wx.PostEvent(self.parent, ResultEvent("Thread finished!"))
         self.child.join(0.2)
 
 class feedCoursesThread(threading.Thread):
@@ -68,6 +87,7 @@ class feedCoursesThread(threading.Thread):
                 time.sleep(0.0001)
                 eval("self.parent.Elvis" + self.points + "_" + self.pace + "Progress").SetValue(i)
                 i += 1
+        wx.PostEvent(self.parent, ResultEvent("Thread finished!"))
         self.child.join(0.2)
 
 class feedAltCoursesThread(threading.Thread):
@@ -110,6 +130,7 @@ class ElvisFeedPanel(wx.Panel):
         self.cfile = ''
         self.sharpcfile = ''
         self.testcfile = ''
+        self.chaingang = []
         self.ef = ElvisFeeder(self)
         if self.custsel == 'Södertälje':
             self.url = 'https://sodertalje.alvis.gotit.se'
@@ -790,6 +811,9 @@ class ElvisFeedPanel(wx.Panel):
         self.SetSizer(elvisFeedBox)
         self.Layout()
 
+        #Special event
+        EVT_RESULT(self, self.getNextInChain)
+
         # Bind events
         self.elvisFilePicker.Bind(wx.EVT_FILEPICKER_CHANGED, self.setTmplFile)
         self.ElvisTemplFeedStart.Bind(wx.EVT_BUTTON, self.feedTemplates)
@@ -989,6 +1013,10 @@ class ElvisFeedPanel(wx.Panel):
             dial.ShowModal()
             altBtn.Enable(False)
             return
+
+    def getNextInChain(self, msg):
+        t = msg.data
+        print(t)
 
     def falseOrTrueTempl(self, evt):
         tOrNot = evt.GetEventObject()
