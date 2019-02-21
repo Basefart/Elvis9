@@ -207,6 +207,14 @@ class ElvisFeedPanel(wx.Panel):
 
         elvisGBS.Add(self.ElvisFeedAll, wx.GBPosition(1, 0), wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
+        self.ElvisSaveSharp = wx.CheckBox(self.elvisScrollable, wx.ID_ANY, u"Spara i Alvis", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.ElvisSaveSharp.SetFont(
+            wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString))
+        self.ElvisSaveSharp.SetToolTip('VARNING! Testa först utan att spara')
+
+
+        elvisGBS.Add(self.ElvisSaveSharp, wx.GBPosition(1, 1), wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
+
         self.ElvisLogin = wx.Button(self.elvisScrollable, wx.ID_ANY, u"Logga in", wx.DefaultPosition, wx.DefaultSize, 0)
         self.ElvisLogin.SetFont(
             wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString))
