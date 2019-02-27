@@ -134,33 +134,22 @@ class ElvisFeedPanel(wx.Panel):
         self.ef = ElvisFeeder(self)
         if self.custsel == 'Södertälje':
             self.url = 'https://sodertalje.alvis.gotit.se'
-            self.sharpcfile = './sodert_courses.xml'
-            self.testcfile = './test_sodert_courses.xml'
+            self.cfile = './sodert_courses.xml'
         elif self.custsel == 'Freja':
             self.url = 'https://freja.alvis.gotit.se/'
-            self.sharpcfile = './freja_courses.xml'
-            self.testcfile = './test_freja_courses.xml'
+            self.cfile = './freja_courses.xml'
         elif self.custsel == 'Huddinge':
             self.url = 'https://huddinge.alvis.gotit.se/'
-            self.sharpcfile = './hudd_courses.xml'
-            self.testcfile = './test_hudd_courses.xml'
+            self.cfile = './hudd_courses.xml'
         elif self.custsel == 'Norrtälje':
             self.url = 'https://norrtalje.alvis.gotit.se/'
-            self.sharpcfile = './norrt_courses.xml'
-            self.testcfile = './test_norrt_courses.xml'
+            self.cfile = './norrt_courses.xml'
         elif self.custsel == 'Salem':
             self.url = 'https://salem.alvis.gotit.se/'
-            self.sharpcfile = './test_salem_courses.xml'
-            self.testcfile = './test_salem_courses.xml'
+            self.cfile = './test_salem_courses.xml'
         elif self.custsel == 'Järfälla':
             self.url = 'https://jarfalla.alvis.gotit.se/'
-            self.sharpcfile = './jarf_courses.xml'
-            self.testcfile = './test_jarf_courses.xml'
-
-        if self.GetParent().GetParent().GetParent().testRun.GetValue():
-            self.cfile = self.testcfile
-        else:
-            self.cfile = self.sharpcfile
+            self.cfile = './jarf_courses.xml'
 
         self.SetSizeHints(wx.Size(1045, 900), wx.Size(1045, 900))
 

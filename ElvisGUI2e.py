@@ -16,6 +16,7 @@ from ElvisFeedPanel import ElvisFeedPanel
 import wx.locale
 import locale
 import wx.adv
+import subprocess
 
 import gettext
 
@@ -120,14 +121,6 @@ class ElvisFrame(wx.Frame):
 
         self.ElvisToolbar2.AddControl(self.saveTemplates)
 
-        self.testRun = wx.CheckBox(self.ElvisToolbar2, wx.ID_ANY, u"Testkörning", wx.DefaultPosition, wx.DefaultSize,
-                                   wx.TRANSPARENT_WINDOW)
-
-        self.testRun.SetFont(
-            wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString))
-
-        self.ElvisToolbar2.AddControl(self.testRun)
-
         self.ElvisToolbar.Realize()
         self.ElvisToolbar2.Realize()
 
@@ -146,6 +139,19 @@ class ElvisFrame(wx.Frame):
         self.ElvisHelp = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"&Hjälp", u"Hjälpfil", wx.ITEM_NORMAL)
         self.ElvisMenu.Append(self.ElvisHelp)
 
+        self.QLSodert = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera S&ödertäljekurser", u"Södertäljekurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLSodert)
+        self.QLFreja = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera Fre&jakurser", u"Frejakurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLFreja)
+        self.QLHudd = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera Hudd&ingekurser", u"Huddingekurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLHudd)
+        self.QLNorrt = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera Norrt&äljekurser", u"Norrtäljekurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLNorrt)
+        self.QLSalem = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera Sale&mkurser", u"Salemkurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLSalem)
+        self.QLJarf = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Redigera Järfä&llakurser", u"Järfällakurser", wx.ITEM_NORMAL)
+        self.ElvisMenu.Append(self.QLJarf)
+
         self.ElvisClose = wx.MenuItem(self.ElvisMenu, wx.ID_ANY, u"Avsl&uta", u"Stäng programmet", wx.ITEM_NORMAL)
         self.ElvisMenu.Append(self.ElvisClose)
 
@@ -162,11 +168,15 @@ class ElvisFrame(wx.Frame):
         self.ElvisCombo.Bind(wx.EVT_COMBOBOX, self.onChangeCustomer)
         self.ElvisCombo.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.setOldCustomer)
         self.Bind(wx.EVT_MENU, self.onClose, self.ElvisClose)
+        self.Bind(wx.EVT_MENU, self.editSodert, self.QLSodert)
+        self.Bind(wx.EVT_MENU, self.editFreja, self.QLFreja)
+        self.Bind(wx.EVT_MENU, self.editHudd, self.QLHudd)
+        self.Bind(wx.EVT_MENU, self.editNorrt, self.QLNorrt)
+        self.Bind(wx.EVT_MENU, self.editSalem, self.QLSalem)
+        self.Bind(wx.EVT_MENU, self.editJarf, self.QLJarf)
         self.tmplFiller.Bind(wx.EVT_BUTTON, self.fillTemplates)
         self.saveTemplates.Bind(wx.EVT_BUTTON, self.saveTmpls2xml)
         self.oneTmpl.Bind(wx.EVT_CHECKBOX, self.setActiveState)
-        self.testRun.Bind(wx.EVT_CHECKBOX, self.setTestRunOrNot)
-
 
         self.Show(True)
         if hasattr(self, 'courselist') and isinstance(self.courselist, ElvisUltimateCourseList):
@@ -226,6 +236,24 @@ class ElvisFrame(wx.Frame):
             self.courselist.Bind(wx.EVT_ENTER_WINDOW, self.onEnterWindow)
         if custsel != 'Välj kund':
             self.ElvisWorktabs.Show()
+
+    def editSodert(self, evt):
+        subprocess.Popen('QuickList.exe Södertälje')
+
+    def editFreja(self, evt):
+        subprocess.Popen('QuickList.exe Freja')
+
+    def editHudd(self, evt):
+        subprocess.Popen('QuickList.exe Huddinge')
+
+    def editNorrt(self, evt):
+        subprocess.Popen('QuickList.exe Norrtälje')
+
+    def editSalem(self, evt):
+        subprocess.Popen('QuickList.exe Salem')
+
+    def editJarf(self, evt):
+        subprocess.Popen('QuickList.exe Järfälla')
 
     def halfpaceadjust(self, string):
         halfdict = {'Heltid': 'Halvtid', 'heltid': 'halvtid', '100%': '50%', '100 %': '50 %'}
@@ -495,11 +523,6 @@ class ElvisFrame(wx.Frame):
         self.templates.Destroy()
         self.feedpanel.Destroy()
         self.Close()
-
-    def setTestRunOrNot(self, evt):
-        cb = evt.GetEventObject()
-        test = cb.GetValue()
-        self.feedpanel.isTestRun(test)
 
     def clearTC(self, evt):
         tc = evt.GetEventObject()
