@@ -146,7 +146,7 @@ class ElvisFeedPanel(wx.Panel):
             self.cfile = './norrt_courses.xml'
         elif self.custsel == 'Salem':
             self.url = 'https://salem.alvis.gotit.se/'
-            self.cfile = './test_salem_courses.xml'
+            self.cfile = './salem_courses.xml'
         elif self.custsel == 'Järfälla':
             self.url = 'https://jarfalla.alvis.gotit.se/'
             self.cfile = './jarf_courses.xml'
