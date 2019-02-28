@@ -226,13 +226,6 @@ class ElvisFeeder:
     def closeDriver(self):
         driver.close()
 
-
-    '''
-    Vad måste lösas?
-    Jag måste veta vilken courses.xml Elvis ska använda.
-    Jag måste veta vilka mallar som ska väljas och koppla dem till poäng och kurstakt. Helst oberoende av när mallinmatning sker.
-    För att kunna testa måste jag ha varianter av alla courses.xml som bara har några få kurser markerade.
-    '''
     def listCourses(self, points, pace, type, tmpl):
         try:
             pointiff = 0
@@ -285,8 +278,18 @@ class ElvisFeeder:
                 break
         studyformclickable = driver.find_element_by_xpath(
             '//div[@id="ctl00_cph_tc1_tb1_pnl31"]/span[@class="ui-dropdownchecklist-wrapper"]')
-        ActionChains(driver).move_to_element(studyformclickable).click(studyformclickable).move_by_offset(0,
-                                        25).click().move_by_offset(0, -100).click().perform()
+        #options = studyformclickable.click().find_elements_by_class_name('ui-dropdownchecklist-item')
+        options = studyformclickable.find_elements_by_class_name("ui-dropdownchecklist-item")
+        for option in options:
+            print(option)
+            studyform = option.find_element_by_class_name('ui-dropdownchecklist-text')
+            print(studyform.get_attribute('text'))
+        '''ActionChains(driver).move_to_element(studyformclickable).click(studyformclickable).move_by_offset(0,
+                                        25).click().move_by_offset(0, -100).click().perform()'''
+        '''
+        Man bör kunna få fram med ett javascript eller css selector efter att man har klickat så att den blir synlig. 
+        '''
+
         try:
             packageornotSlc = Select(driver.find_element_by_id('ctl00_cph_tc1_tb1_SokAnmkodKurspaketDDL'))
             packageornotSlc.select_by_visible_text('Nej')
