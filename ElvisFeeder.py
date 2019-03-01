@@ -287,7 +287,8 @@ class ElvisFeeder:
         '''ActionChains(driver).move_to_element(studyformclickable).click(studyformclickable).move_by_offset(0,
                                         25).click().move_by_offset(0, -100).click().perform()'''
         '''
-        Man bör kunna få fram med ett javascript eller css selector efter att man har klickat så att den blir synlig. 
+        Man bör kunna få fram med ett javascript eller css selector efter att man har klickat så att den blir synlig.
+        Fungerade!
         '''
 
         try:
