@@ -1,13 +1,12 @@
 import wx
 import wx.lib.agw.ultimatelistctrl as ULC
 from xml.etree import ElementTree as ET
-from xml.etree.ElementTree import Element, SubElement
+from xml.etree.ElementTree import SubElement
 from ElvisCourseDialog2 import ElvisCourseDlg
 from xml.dom import minidom
-from ListSkeletonFiller import ListSkeletonFiller
+import wx.lib.mixins.listctrl as listmix
 
-
-class ElvisUltimateCourseList(wx.Panel):
+class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
 
     def __init__(self, parent, custsel):
         wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(-1,-1), style=wx.WANTS_CHARS | wx.TAB_TRAVERSAL)
@@ -48,25 +47,38 @@ class ElvisUltimateCourseList(wx.Panel):
         def makeheader(text, col):
             info = ULC.UltimateListItem()
             info._format = wx.LIST_FORMAT_LEFT
-            info._mask = wx.LIST_MASK_TEXT | wx.LIST_MASK_FORMAT | ULC.ULC_MASK_FONT
+            info._mask = wx.LIST_MASK_TEXT | wx.LIST_MASK_FORMAT | ULC.ULC_MASK_FONT | ULC.ULC_MASK_PYDATA
             info._text = text
+            info.SetPyData(col)
             info._font = boldfont
             elvisulc.InsertColumnInfo(col, info)
 
-        cols = {'Anmälningskod': 0, 'Namn': 1, 'Poäng': 2, 'Heltid': 3, 'Halvtid': 4, 'Kvartstid': 5, 'Kurstyp': 6, 'Redigera': 7}
+        cols = {'Anmälningskod': 0, 'Namn': 1, 'Poäng': 2, 'Heltid': 3, 'Halvtid': 4, 'Kvartstid': 5, 'Kurstyp': 6, '': 7}
         for k, v in cols.items():
             makeheader(k, v)
+
+        nosortcol = elvisulc.GetColumn(7)
+        nosortcol.Enable(False)
 
         wx.CallAfter(self.setColWidth, elvisulc)
 
         rows, self.numrows = self.parsexml()
+        self.dictOfCourses = {i: rows[i] for i in range(0, len(rows))}
 
-        i = 0
-        self.listSkelly = ListSkeletonFiller(self, rows)
+        self.itemDataMap = self.dictOfCourses
 
-        while i < self.numrows:
-            self.listSkelly.insertRowIndex(i)
-            i += 1
+        items = self.dictOfCourses.items()
+
+        for key, data in items:
+            index = self.elvisulc.Append(data)
+            self.elvisulc.SetItemData(index, key)
+            identity = self.elvisulc.GetItemText(index)
+            editBtn = wx.Button(self.elvisulc, wx.ID_ANY, u"Redigera", wx.DefaultPosition, wx.DefaultSize, 0)
+            editBtn.course = identity
+            self.elvisulc.SetItemWindow(index, 7, editBtn, expand=False)
+            editBtn.Bind(wx.EVT_BUTTON, self.onClickCourse)
+
+        listmix.ColumnSorterMixin.__init__(self, 8)
 
         gbTotal = wx.GridBagSizer(0, 0)
         gbTotal.SetFlexibleDirection(wx.HORIZONTAL)
@@ -98,6 +110,10 @@ class ElvisUltimateCourseList(wx.Panel):
         gbTotal.AddGrowableRow(1)
 
         self.SetSizer(gbTotal)
+
+
+        self.elvisulc.Bind(ULC.EVT_LIST_COL_CLICK, self.OnColumn)
+
 
     def setColWidth(self, elvisulc):
         elvisulc.SetColumnWidth(0, 150)
@@ -176,7 +192,6 @@ class ElvisUltimateCourseList(wx.Panel):
                 course.find(speed).text = str(state)
         return self.xml2file(tree)
 
-
     def xml2file(self, tree):
         root = tree.getroot()
         root.set("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
@@ -211,6 +226,14 @@ class ElvisUltimateCourseList(wx.Panel):
                 for child in course:
                     coursedict[child.tag] = child.text
         return coursedict
+
+    def OnColumn(self, evt):
+        self.elvisulc.Refresh()
+        self.elvisulc.SetFocus()
+        evt.Skip()
+
+    def GetListCtrl(self):
+        return self.elvisulc
 
     def resurrectMyGrandfather(self):
         wx.CallLater(800, self.bigReload)
