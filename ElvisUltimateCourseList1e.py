@@ -229,7 +229,7 @@ class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
 
     def OnColumn(self, evt):
         self.elvisulc.Refresh()
-        self.elvisulc.SetFocus()
+        self.GetParent().GetParent().giveCourseListFocus()
         evt.Skip()
 
     def GetListCtrl(self):

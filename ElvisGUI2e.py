@@ -461,7 +461,10 @@ class ElvisFrame(wx.Frame):
 
     def onEnterWindow(self, evt):
         if hasattr(self, 'courselist') and isinstance(self.courselist, ElvisUltimateCourseList):
-            self.courselist.SetFocus()
+            self.giveCourseListFocus()
+
+    def giveCourseListFocus(self):
+        self.courselist.SetFocus()
 
     def setOldCustomer(self, evt):
         self.oldcust = self.ElvisCombo.GetValue()
