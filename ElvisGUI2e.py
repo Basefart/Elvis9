@@ -83,6 +83,7 @@ class ElvisFrame(wx.Frame):
         self.ElvisToolbar.AddControl(self.ElvisCourseStart)
         self.ElvisFeedName = wx.TextCtrl(self.ElvisToolbar, wx.ID_ANY, u"Inmatningens namn", wx.DefaultPosition,
                                          wx.Size(220, -1), 0)
+        self.ElvisFeedName.SetMaxLength(10)
         self.ElvisFeedName.SetToolTip(u"Inmatningens namn. Används för mallar.")
         self.ElvisFeedName.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
 

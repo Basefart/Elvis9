@@ -51,7 +51,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm100Full = wx.TextCtrl(sbSizer100Full.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm100Full.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz100Full.Add(self.tmplNm100Full, 0, wx.ALL, 5)
 
         self.state100Full = wx.CheckBox(sbSizer100Full.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -94,7 +93,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm100Half = wx.TextCtrl(sbSizer100Half.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm100Half.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz100Half.Add(self.tmplNm100Half, 0, wx.ALL, 5)
 
         self.state100Half = wx.CheckBox(sbSizer100Half.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -138,7 +136,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm100Quart = wx.TextCtrl(sbSizer100Quart.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm100Quart.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz100Quart.Add(self.tmplNm100Quart, 0, wx.ALL, 5)
 
         self.state100Quart = wx.CheckBox(sbSizer100Quart.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -191,7 +188,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm200Full = wx.TextCtrl(sbSizer200Full.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm200Full.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz200Full.Add(self.tmplNm200Full, 0, wx.ALL, 5)
 
         self.state200Full = wx.CheckBox(sbSizer200Full.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -236,7 +232,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm200Half = wx.TextCtrl(sbSizer200Half.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm200Half.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz200Half.Add(self.tmplNm200Half, 0, wx.ALL, 5)
 
         self.state200Half = wx.CheckBox(sbSizer200Half.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -280,7 +275,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm200Quart = wx.TextCtrl(sbSizer200Quart.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm200Quart.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz200Quart.Add(self.tmplNm200Quart, 0, wx.ALL, 5)
 
         self.state200Quart = wx.CheckBox(sbSizer200Quart.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -333,7 +327,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm150Full = wx.TextCtrl(sbSizer150Full.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm150Full.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz150Full.Add(self.tmplNm150Full, 0, wx.ALL, 5)
 
         self.state150Full = wx.CheckBox(sbSizer150Full.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -377,7 +370,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm150Half = wx.TextCtrl(sbSizer150Half.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm150Half.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz150Half.Add(self.tmplNm150Half, 0, wx.ALL, 5)
 
         self.state150Half = wx.CheckBox(sbSizer150Half.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -421,7 +413,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm150Quart = wx.TextCtrl(sbSizer150Quart.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm150Quart.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz150Quart.Add(self.tmplNm150Quart, 0, wx.ALL, 5)
 
         self.state150Quart = wx.CheckBox(sbSizer150Quart.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -477,7 +468,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm50Half = wx.TextCtrl(sbSizer50Half.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm50Half.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz50Half.Add(self.tmplNm50Half, 0, wx.ALL, 5)
 
         self.state50Half = wx.CheckBox(sbSizer50Half.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -520,7 +510,6 @@ class ElvisTmplPanel(wx.Panel):
 
         self.tmplNm50Quart = wx.TextCtrl(sbSizer50Quart.GetStaticBox(), wx.ID_ANY, u"Mallnamn", wx.DefaultPosition,
                                          wx.Size(180, -1), 0)
-        self.tmplNm50Quart.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         wSiz50Quart.Add(self.tmplNm50Quart, 0, wx.ALL, 5)
 
         self.state50Quart = wx.CheckBox(sbSizer50Quart.GetStaticBox(), wx.ID_ANY, u"Aktiv", wx.DefaultPosition,
@@ -582,3 +571,5 @@ class ElvisTmplPanel(wx.Panel):
         val = tc.GetValue()
         if val == "Mallnamn":
             tc.SetValue('')
+        else:
+            tc.Enable(True)
