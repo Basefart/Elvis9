@@ -22,6 +22,10 @@ import re
 ###########################################################################
 
 # Define notification event for thread completion
+# Om man inte har klickat i att programmet ska spara (self.ElvisSaveSharp) färgmarkeras knappen och det dyker upp en
+# notifikation att man kan spara.
+# Om man har klickat i att programmet ska spara (self.ElvisSaveSharp) färmarkeras knappen och det dyker upp en räknare
+# med en knapp så man kan stoppa ifall man ser ett fel.
 EVT_RESULT_ID = wx.NewId()
 
 
