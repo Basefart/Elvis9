@@ -104,9 +104,9 @@ class ElvisFeeder:
                 val = ''
                 for twig in branch:
                     if twig.tag == 'anmkod':
-                        key = twig.text
+                        key = twig.text.strip()
                     if twig.tag == pace:
-                        val = twig.text
+                        val = twig.text.strip()
                     courseDict.update({key: val})
                 self.courseList.append(courseDict)
         if self.courseList:
@@ -235,7 +235,7 @@ class ElvisFeeder:
             del trlist[0]
             for tr in trlist:
                 tdlist = tr.find_elements_by_tag_name('td')
-                pointiff += int(tdlist[2].text)
+                pointiff += int(tdlist[3].text)
                 pointiffcount += 1
 
             if int(pointiff/pointiffcount) == int(points):

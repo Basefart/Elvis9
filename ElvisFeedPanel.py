@@ -22,6 +22,7 @@ import re
 ###########################################################################
 
 # Define notification event for thread completion
+# Nedanstående speglar ambition inte verklighet!
 # Om man inte har klickat i att programmet ska spara (self.ElvisSaveSharp) färgmarkeras knappen och det dyker upp en
 # notifikation att man kan spara.
 # Om man har klickat i att programmet ska spara (self.ElvisSaveSharp) färmarkeras knappen och det dyker upp en räknare
@@ -122,7 +123,10 @@ class feedAltCoursesThread(threading.Thread):
                 i += 1
         self.child.join(0.2)
 
-
+'''
+Det borde gå att göra så att man både kan räkna ut vilka som behöver köras
+och att kunna avgöra vilka som ska följa på varandra. Sneekpeak? Baserat på den lista som tas fram.
+'''
 class ElvisFeedPanel(wx.Panel):
 
     def __init__(self, parent):
@@ -1017,7 +1021,7 @@ class ElvisFeedPanel(wx.Panel):
 
     def getNextInChain(self, msg):
         t = msg.data
-        print(t)
+        #print(t)
 
     def falseOrTrueTempl(self, evt):
         tOrNot = evt.GetEventObject()
