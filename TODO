@@ -1,1 +1,3 @@
 ## TODO Det ska gå att köra alla inmatningar i följd, först mallar och sedan kurser efter mallar.
+## TODO Lägg alla xml-filer på nätverksdrive
+## TODO Om det inte finns några kurser att mata in ska knapparna vara Enable(False)

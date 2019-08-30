@@ -14,21 +14,21 @@ class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
         self.SetBackgroundColour(wx.Colour(255,255,255,120))
         self.exitFlag = 0
         self.custsel = custsel
-        self.file = './courses.xml'
+        self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/courses.xml'
         if self.custsel == 'Välj kund':
-            self.file = './courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/courses.xml'
         elif self.custsel == 'Södertälje':
-            self.file = './sodert_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/sodert_courses.xml'
         elif self.custsel == 'Freja':
-            self.file = './freja_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/freja_courses.xml'
         elif self.custsel == 'Huddinge':
-            self.file = './hudd_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/hudd_courses.xml'
         elif self.custsel == 'Norrtälje':
-            self.file = './norrt_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/norrt_courses.xml'
         elif self.custsel == 'Salem':
-            self.file = './salem_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/salem_courses.xml'
         elif self.custsel == 'Järfälla':
-            self.file = './jarf_courses.xml'
+            self.file = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/jarf_courses.xml'
         self.courselist = []
         font = wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT)
         boldfont = wx.SystemSettings.GetFont(wx.SYS_DEFAULT_GUI_FONT)
