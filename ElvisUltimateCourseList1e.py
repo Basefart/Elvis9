@@ -38,7 +38,7 @@ class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
         boldfont.SetPointSize(12)
 
         agwStyle = (ULC.ULC_HAS_VARIABLE_ROW_HEIGHT | ULC.ULC_REPORT | ULC.ULC_SINGLE_SEL |
-                    ULC.ULC_STICKY_HIGHLIGHT | ULC.ULC_VRULES | ULC.ULC_HRULES | ULC.ULC_STICKY_NOSELEVENT)
+                    ULC.ULC_VRULES | ULC.ULC_HRULES | ULC.ULC_STICKY_NOSELEVENT)
         self.elvisulc = elvisulc = ULC.UltimateListCtrl(self, wx.ID_ANY, agwStyle=agwStyle)
         elvisulc.ClearBackground()
         elvisulc.SetBackgroundColour(wx.Colour(255, 255, 255, 120))
@@ -113,7 +113,7 @@ class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
 
 
         self.elvisulc.Bind(ULC.EVT_LIST_COL_CLICK, self.OnColumn)
-
+        self.elvisulc.Bind(wx.EVT_KILL_FOCUS, self.handleSelectionOutofFocus)
 
     def setColWidth(self, elvisulc):
         elvisulc.SetColumnWidth(0, 150)
@@ -273,6 +273,9 @@ class ElvisUltimateCourseList(wx.Control, wx.Panel, listmix.ColumnSorterMixin):
                         return
         if changed:
             self.courseDlg.prepReload()
+
+    def handleSelectionOutofFocus(self, event):
+        self.elvisulc.GetFirstSelected()
 
     def presentSelf(self):
         return self

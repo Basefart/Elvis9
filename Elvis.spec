@@ -4,7 +4,6 @@ block_cipher = None
 
 added_data_files = [
 ('./*.jpg','.'),
-('./*.xml','.'),
 ('./*.exe','.')
 ]
 added_binary_files = [

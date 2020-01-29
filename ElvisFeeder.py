@@ -3,7 +3,8 @@ from xml.etree.ElementTree import ParseError
 import locale
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException, WebDriverException, TimeoutException, ElementNotVisibleException,StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException, WebDriverException, \
+    TimeoutException, ElementNotVisibleException,StaleElementReferenceException, ElementNotInteractableException
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import time
@@ -121,20 +122,27 @@ class ElvisFeeder:
         else:
             besturl =cu[0] + '//' + cu[2] + '/admin/AdmKurskatalog.aspx'
             driver.get(besturl)
+            while not self.readysteadygo():
+                if self.readysteadygo():
+                    break
+        try:
+            newTmpl = driver.find_element_by_id('ctl00_cph_tc1_tb4_NyMallButton')
+            newTmpl.click()
+        except (NoSuchElementException, ElementNotVisibleException, ElementNotInteractableException):
+            randominput = driver.find_element_by_id('ctl00_cph_tc1_tb1_SokKursstartkurskodTB')
+            actions = ActionChains(driver)
+            actions.move_to_element(randominput)
+            actions.move_by_offset(0, -73)
+            actions.click()
+            actions.perform()
+            while not self.readysteadygo():
+                if self.readysteadygo():
+                    break
+            newTmpl = driver.find_element_by_id('ctl00_cph_tc1_tb4_NyMallButton')
+            newTmpl.click()
         while not self.readysteadygo():
             if self.readysteadygo():
                 break
-        randominput = driver.find_element_by_id('ctl00_cph_tc1_tb1_SokKursstartkurskodTB')
-        actions = ActionChains(driver)
-        actions.move_to_element(randominput)
-        actions.move_by_offset(0, -73)
-        actions.click()
-        actions.perform()
-        while not self.readysteadygo():
-            if self.readysteadygo():
-                break
-        newTmpl = driver.find_element_by_id('ctl00_cph_tc1_tb4_NyMallButton')
-        newTmpl.click()
         time.sleep(0.2)
         nmTxt = driver.find_element_by_id('ctl00_cph_tc1_tb4_MallNamnKursstartTextBox')
         nmTxt.clear()

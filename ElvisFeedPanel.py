@@ -142,22 +142,22 @@ class ElvisFeedPanel(wx.Panel):
         self.ef = ElvisFeeder(self)
         if self.custsel == 'Södertälje':
             self.url = 'https://sodertalje.alvis.gotit.se'
-            self.cfile = './sodert_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/sodert_courses.xml'
         elif self.custsel == 'Freja':
             self.url = 'https://freja.alvis.gotit.se/'
-            self.cfile = './freja_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/freja_courses.xml'
         elif self.custsel == 'Huddinge':
             self.url = 'https://huddinge.alvis.gotit.se/'
-            self.cfile = './hudd_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/hudd_courses.xml'
         elif self.custsel == 'Norrtälje':
             self.url = 'https://norrtalje.alvis.gotit.se/'
-            self.cfile = './norrt_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/norrt_courses.xml'
         elif self.custsel == 'Salem':
             self.url = 'https://salem.alvis.gotit.se/'
-            self.cfile = './salem_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/salem_courses.xml'
         elif self.custsel == 'Järfälla':
             self.url = 'https://jarfalla.alvis.gotit.se/'
-            self.cfile = './jarf_courses.xml'
+            self.cfile = '//acacentfile02.learnet.se/NTI-Administration$/Elvis_xml/jarf_courses.xml'
 
         self.SetSizeHints(wx.Size(1045, 900), wx.Size(1045, 900))
 
@@ -201,6 +201,7 @@ class ElvisFeedPanel(wx.Panel):
         self.ElvisFeedAll = wx.CheckBox(self.elvisScrollable, wx.ID_ANY, u"Kör efter varandra", wx.DefaultPosition, wx.DefaultSize, 0)
         self.ElvisFeedAll.SetFont(
             wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString))
+        self.ElvisFeedAll.Enable(False)
 
         elvisGBS.Add(self.ElvisFeedAll, wx.GBPosition(1, 0), wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
@@ -208,7 +209,7 @@ class ElvisFeedPanel(wx.Panel):
         self.ElvisSaveSharp.SetFont(
             wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString))
         self.ElvisSaveSharp.SetToolTip('VARNING! Testa först utan att spara')
-
+        self.ElvisSaveSharp.Enable(False)
 
         elvisGBS.Add(self.ElvisSaveSharp, wx.GBPosition(1, 1), wx.GBSpan(1, 1), wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
@@ -1037,9 +1038,3 @@ class ElvisFeedPanel(wx.Panel):
             litter[2].Enable(False)
             litter[3].Enable(False)
             litter[4].Enable(False)
-
-    def isTestRun(self, yes):
-        if yes:
-            self.cfile = self.testcfile
-        else:
-            self.cfile = self.sharpcfile
