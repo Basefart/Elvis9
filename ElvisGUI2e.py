@@ -6,6 +6,7 @@
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
+import os
 
 import wx
 import wx.aui
@@ -96,11 +97,18 @@ class ElvisFrame(wx.Frame):
 
         self.ElvisToolbar.AddControl(self.ElvisPeriod)
 
+        self.ElvisToolbar.AddStretchSpacer()
+        self.helpTool = self.ElvisToolbar.AddTool(wx.ID_ANY, u"Instruktioner", wx.Bitmap(
+            "./Instructions.png", wx.BITMAP_TYPE_ANY), wx.NullBitmap,
+                                                  wx.ITEM_NORMAL, u"Instruktioner", u"Här finns instruktioner för användning av Elvis", None)
+
         self.ElvisComment = wx.TextCtrl(self.ElvisToolbar2, wx.ID_ANY, u"Generell kursbeskrivning. Skriv heltid.", wx.DefaultPosition,
                                        wx.Size(400, 60), wx.TE_MULTILINE)
         self.ElvisComment.SetToolTip(u"Generell kursbeskrivning. Skriv som vid heltid.")
         self.ElvisComment.Bind(wx.EVT_LEFT_DOWN, self.clearTC)
         self.ElvisToolbar2.AddControl(self.ElvisComment)
+
+
 
         self.oneTmpl = wx.CheckBox(self.ElvisToolbar2, wx.ID_ANY, u"Bara en mall", wx.DefaultPosition, wx.DefaultSize,
                                    wx.TRANSPARENT_WINDOW)
@@ -168,6 +176,8 @@ class ElvisFrame(wx.Frame):
         self.Bind(wx.EVT_ERASE_BACKGROUND, self.onEraseBackground)
         self.ElvisCombo.Bind(wx.EVT_COMBOBOX, self.onChangeCustomer)
         self.ElvisCombo.Bind(wx.EVT_COMBOBOX_DROPDOWN, self.setOldCustomer)
+        self.Bind(wx.EVT_TOOL, self.onHelp, id=self.helpTool.GetId())
+        self.Bind(wx.EVT_MENU, self.onHelp, self.ElvisHelp)
         self.Bind(wx.EVT_MENU, self.onClose, self.ElvisClose)
         self.Bind(wx.EVT_MENU, self.editSodert, self.QLSodert)
         self.Bind(wx.EVT_MENU, self.editFreja, self.QLFreja)
@@ -201,9 +211,16 @@ class ElvisFrame(wx.Frame):
         bmp = wx.Bitmap("elvis.jpg")
         dc.DrawBitmap(bmp, x, y)
 
+    def onHelp(self, evt):
+        abspath = os.path.abspath('./help/instructions.pdf')
+        os.system(abspath)
+        evt.Skip()
+
     def makeWorkTabs(self, custsel):
-        if hasattr(self, 'ElvisWorktabs'):
-            self.ElvisWorktabs.Destroy()
+        children = self.GetChildren()
+        for child in children:
+            if isinstance(child, wx.Notebook):
+                child.Destroy()
         self.ElvisWorktabs = wx.Notebook(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0)
         self.ElvisWorktabs.Hide()
         self.ElvisWorktabs.SetFont(

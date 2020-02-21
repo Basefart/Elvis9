@@ -5,6 +5,7 @@ block_cipher = None
 added_data_files = [
 ('./*.jpg','.'),
 ('./*.exe','.')
+('./help/*.pdf','./help')
 ]
 added_binary_files = [
 ('C:/Drivers/WebDrivers/chromedriver.exe','.'),
